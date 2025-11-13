@@ -85,14 +85,15 @@ The gateway will be available at `http://localhost:3000`
 cd frontend
 npm install
 
-# Optional: Create .env file to override API URL
+# Optional: Create .env file to override API URL and port
 # REACT_APP_API_URL=http://localhost:3000
+# PORT=3001
 
-# Run the frontend
-npm start
+# Run the frontend (will use port 3001 by default to avoid conflict with Node backend)
+PORT=3001 npm start
 ```
 
-The frontend will open at `http://localhost:3000` (or another port if 3000 is taken)
+The frontend will open at `http://localhost:3001` (to avoid conflict with Node backend on port 3000)
 
 ## 📋 Features
 

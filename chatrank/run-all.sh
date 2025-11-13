@@ -32,15 +32,16 @@ else
     NODE_PID=""
 fi
 
-# Check if React frontend is running
+# Check if React frontend is running (on port 3001 to avoid conflict with Node backend)
 if ! lsof -Pi :3001 -sTCP:LISTEN -t >/dev/null ; then
-    echo "📦 Starting React frontend..."
+    echo "📦 Starting React frontend on port 3001..."
     cd frontend
-    npm start &
+    PORT=3001 npm start &
     FRONTEND_PID=$!
     cd ..
+    sleep 3
 else
-    echo "✅ React frontend already running"
+    echo "✅ React frontend already running on port 3001"
     FRONTEND_PID=""
 fi
 
@@ -49,8 +50,8 @@ echo "✅ All services started!"
 echo ""
 echo "📍 Services:"
 echo "   - Python: http://localhost:8001"
-echo "   - Node: http://localhost:3000"
-echo "   - React: http://localhost:3000 (or 3001)"
+echo "   - Node Backend: http://localhost:3000"
+echo "   - React Frontend: http://localhost:3001"
 echo ""
 echo "Press Ctrl+C to stop all services"
 

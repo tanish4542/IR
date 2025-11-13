@@ -31,7 +31,8 @@ function App() {
       const data = await search(API_BASE_URL, {
         query: searchQuery,
         num_results: numResults,
-        ranking: rankingMode
+        ranking: rankingMode,
+        alpha: 0.6
       });
       setResults(data);
     } catch (err) {

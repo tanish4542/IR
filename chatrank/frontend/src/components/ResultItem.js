@@ -21,12 +21,12 @@ function ResultItem({ result, rank, query, rankingMode }) {
   const getDisplayScore = () => {
     switch (rankingMode) {
       case 'cosine':
-        return result.cosine_score;
+        return result.cosine_score !== undefined ? result.cosine_score : 0;
       case 'tfidf':
-        return result.tfidf_term_score;
+        return result.tfidf_term_score !== undefined ? result.tfidf_term_score : 0;
       case 'combined':
       default:
-        return result.combined_score;
+        return result.combined_score !== undefined ? result.combined_score : 0;
     }
   };
 
@@ -65,27 +65,47 @@ function ResultItem({ result, rank, query, rankingMode }) {
       <div className="result-metrics">
         <div className="metric">
           <span className="metric-label">Cosine Similarity:</span>
-          <span className="metric-value">{result.cosine_score.toFixed(4)}</span>
+          <span className="metric-value">
+            {result.cosine_score !== undefined && result.cosine_score !== null 
+              ? result.cosine_score.toFixed(4) 
+              : 'N/A'}
+          </span>
         </div>
         <div className="metric">
           <span className="metric-label">TF-IDF Term Score:</span>
-          <span className="metric-value">{result.tfidf_term_score.toFixed(4)}</span>
+          <span className="metric-value">
+            {result.tfidf_term_score !== undefined && result.tfidf_term_score !== null 
+              ? result.tfidf_term_score.toFixed(4) 
+              : 'N/A'}
+          </span>
         </div>
         <div className="metric">
           <span className="metric-label">Combined Score:</span>
-          <span className="metric-value">{result.combined_score.toFixed(4)}</span>
+          <span className="metric-value">
+            {result.combined_score !== undefined && result.combined_score !== null 
+              ? result.combined_score.toFixed(4) 
+              : 'N/A'}
+          </span>
         </div>
       </div>
       
       <div className="score-bar-container">
         <div className="score-bar-label">
           {rankingMode === 'combined' ? 'Combined' : 
-           rankingMode === 'cosine' ? 'Cosine' : 'TF-IDF'} Score: {displayScore.toFixed(4)}
+           rankingMode === 'cosine' ? 'Cosine' : 'TF-IDF'} Score: {
+            displayScore !== undefined && displayScore !== null 
+              ? displayScore.toFixed(4) 
+              : 'N/A'
+          }
         </div>
         <div className="score-bar">
           <div 
             className="score-bar-fill"
-            style={{ width: `${displayScore * 100}%` }}
+            style={{ 
+              width: `${displayScore !== undefined && displayScore !== null 
+                ? displayScore * 100 
+                : 0}%` 
+            }}
           />
         </div>
       </div>

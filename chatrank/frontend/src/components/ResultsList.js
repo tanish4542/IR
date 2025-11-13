@@ -11,12 +11,12 @@ function ResultsList({ results, query, rankingMode }) {
   const getDisplayScore = (result) => {
     switch (rankingMode) {
       case 'cosine':
-        return result.cosine_score;
+        return result.cosine_score !== undefined && result.cosine_score !== null ? result.cosine_score : 0;
       case 'tfidf':
-        return result.tfidf_term_score;
+        return result.tfidf_term_score !== undefined && result.tfidf_term_score !== null ? result.tfidf_term_score : 0;
       case 'combined':
       default:
-        return result.combined_score;
+        return result.combined_score !== undefined && result.combined_score !== null ? result.combined_score : 0;
     }
   };
 

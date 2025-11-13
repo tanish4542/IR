@@ -31,12 +31,13 @@ npm run dev
 ```bash
 cd frontend
 npm install
-npm start
+# Run on port 3001 to avoid conflict with Node backend on port 3000
+PORT=3001 npm start
 ```
 
 ### Step 5: Test It!
 
-1. Open http://localhost:3000 in your browser
+1. Open http://localhost:3001 in your browser (React runs on port 3001 to avoid conflict with Node backend on port 3000)
 2. Try searching: "machine learning applications"
 3. See the AI answer and ranked results with scores!
 

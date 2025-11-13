@@ -26,11 +26,13 @@ router.post('/', async (req, res, next) => {
   } catch (error) {
     if (error.response) {
       // Python service returned an error
-      res.status(error.response.status).json({
-        error: error.response.data.detail || error.response.data.error || 'Search service error'
+      const statusCode = error.response.status || 500;
+      const errorMessage = error.response.data.detail || error.response.data.error || 'Search service error';
+      res.status(statusCode).json({
+        error: errorMessage
       });
     } else if (error.code === 'ECONNREFUSED') {
-      res.status(503).json({ error: 'Python service is not available. Please ensure it is running.' });
+      res.status(503).json({ error: 'Python service is not available. Please ensure it is running on port 8001.' });
     } else if (error.code === 'ETIMEDOUT') {
       res.status(504).json({ error: 'Request to Python service timed out' });
     } else {
